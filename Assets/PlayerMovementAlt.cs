@@ -87,7 +87,7 @@ public class PlayerMovementAlt : MonoBehaviour
         c.Move(new Vector3(mHsp, mVsp, 0) * Time.deltaTime);
 
         // Move camera with
-        obj.transform.position = new Vector3(transform.position.x, transform.position.y + 3.5f, obj.transform.position.z);
+        //obj.transform.position = new Vector3(transform.position.x, transform.position.y + 2.5f, obj.transform.position.z);
 	}
 
     void FixedUpdate()

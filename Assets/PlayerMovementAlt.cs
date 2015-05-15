@@ -19,9 +19,6 @@ public class PlayerMovementAlt : MonoBehaviour
 
     private float dx;
 
-    [SerializeField]
-    private bool onGround = false;
-
 	// Init
 	void Start ()
 	{
@@ -34,7 +31,7 @@ public class PlayerMovementAlt : MonoBehaviour
         // Set direction of player according to gravity
         float angle = Mathf.MoveTowardsAngle(
             transform.eulerAngles.z - 90,
-            PlayerMovement.gravDir,
+            EntityProperties.gravDir,
             spinSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
 
@@ -42,23 +39,24 @@ public class PlayerMovementAlt : MonoBehaviour
         
         // Modify controller
         CharacterController c = GetComponent<CharacterController>();
+        EntityProperties p = GetComponent<EntityProperties>();
 
         // Set up directional proportions
-        float propX = Mathf.Cos(PlayerMovement.gravDir * Mathf.Deg2Rad);
-        float propY = Mathf.Sin(PlayerMovement.gravDir * Mathf.Deg2Rad);
+        float propX = Mathf.Cos(EntityProperties.gravDir * Mathf.Deg2Rad);
+        float propY = Mathf.Sin(EntityProperties.gravDir * Mathf.Deg2Rad);
 
         // Get input
         dx = Input.GetAxis("Horizontal") * multiplier;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && onGround)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && p.onGround)
         {
             hspeed = jumpheight * -propX;
             vspeed = jumpheight * -propY;
-            onGround = false;
+            p.onGround = false;
         }
 
         // Apply gravity
-        if (onGround)
+        if (p.onGround)
         {
             hspeed = gravity * propX * Time.deltaTime;
             vspeed = gravity * propY * Time.deltaTime;
@@ -70,8 +68,8 @@ public class PlayerMovementAlt : MonoBehaviour
         }
 
         // Proportion horizontal input movement
-        propX = Mathf.Cos((PlayerMovement.gravDir + 90) * Mathf.Deg2Rad);
-        propY = Mathf.Sin((PlayerMovement.gravDir + 90) * Mathf.Deg2Rad);
+        propX = Mathf.Cos((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
+        propY = Mathf.Sin((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
 
         float mHsp = hspeed + (dx * propX);
         float mVsp = vspeed + (dx * propY);
@@ -83,12 +81,14 @@ public class PlayerMovementAlt : MonoBehaviour
     // Flag on ground
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Ground") onGround = true;
+        if (other.gameObject.tag == "Ground")
+            GetComponent<EntityProperties>().onGround = true;
     }
 
     // Flag leave ground
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Ground") onGround = false;
+        if (other.gameObject.tag == "Ground")
+            GetComponent<EntityProperties>().onGround = false;
     }
 }

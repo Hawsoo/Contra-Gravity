@@ -3,9 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static float gravDir = 270;
-
-    public float multiplier = 20;
+    /*public float multiplier = 20;
     public float gravity = 0.5f;
     public float jumpheight = 15;
 
@@ -82,5 +80,5 @@ public class PlayerMovement : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Ground") onGround = false;
-    }
+    }*/
 }

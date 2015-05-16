@@ -76,6 +76,7 @@ public class PlayerMovementAlt : MonoBehaviour
 
         // Move
         c.Move(new Vector3(mHsp, mVsp, 0) * Time.deltaTime);
+        //GetComponent<Rigidbody>().velocity = new Vector3(mHsp, mVsp, 0)/* * Time.deltaTime*/;
 	}
 
     // Flag on ground

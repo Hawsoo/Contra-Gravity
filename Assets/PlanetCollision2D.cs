@@ -37,14 +37,13 @@ public class PlanetCollision2D : MonoBehaviour
             if (leftHit && rightHit)
             {
                 // Find angle of slope
-                float w = Mathf.Abs(rayRight.x - rayLeft.x);
+                float w = rayRight.x - rayLeft.x;
                 float h = leftDist - rightDist;
 
                 float angle = (Mathf.Atan2(h, w) * Mathf.Rad2Deg) + transform.eulerAngles.z;
 
                 // Set grav direction to correct angle
                 EntityProperties.gravDir = angle - 90;
-
             }
         }
         // In midair

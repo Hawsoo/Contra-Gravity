@@ -16,16 +16,20 @@ public class PlayerMovement2D : MonoBehaviour
     private float vspeed;
 
     private float dx;
+    private float mHsp;
+    private float mVsp;
 
 	// Init
-	void Start ()
+	void Start()
 	{
 		
 	}
 	
 	// Update
-	void Update ()
-	{
+    void FixedUpdate()
+    {
+        //obj.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+
         // Set direction of player according to gravity
         float angle = Mathf.MoveTowardsAngle(
             transform.eulerAngles.z - 90,
@@ -34,7 +38,7 @@ public class PlayerMovement2D : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
 
 
-        
+
         // Modify controller
         CharacterController c = GetComponent<CharacterController>();
         EntityProperties p = GetComponent<EntityProperties>();
@@ -46,7 +50,7 @@ public class PlayerMovement2D : MonoBehaviour
         // Get input
         dx = Input.GetAxis("Horizontal") * multiplier;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && p.onGround)
+        if (Input.GetKey(KeyCode.UpArrow) && p.onGround)
         {
             hspeed = jumpheight * -propX;
             vspeed = jumpheight * -propY;
@@ -69,8 +73,8 @@ public class PlayerMovement2D : MonoBehaviour
         propX = Mathf.Cos((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
         propY = Mathf.Sin((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
 
-        float mHsp = hspeed + (dx * propX);
-        float mVsp = vspeed + (dx * propY);
+        mHsp = hspeed + (dx * propX);
+        mVsp = vspeed + (dx * propY);
 
         // Move
         GetComponent<Rigidbody2D>().velocity = new Vector2(mHsp, mVsp);

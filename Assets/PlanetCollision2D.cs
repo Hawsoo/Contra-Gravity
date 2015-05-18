@@ -49,7 +49,7 @@ public class PlanetCollision2D : MonoBehaviour
         // In midair
         else
         {
-
+            // TODO: create code for finding closest planet
         }
 	}
     

@@ -56,10 +56,8 @@ public class PlayerMovement2D : MonoBehaviour
         // Apply gravity
         if (p.onGround)
         {
-            //hspeed = gravity * propX * Time.deltaTime;
-            //vspeed = gravity * propY * Time.deltaTime;
-            hspeed = 0;
-            vspeed = 0;
+            hspeed = gravity * propX * Time.deltaTime;
+            vspeed = gravity * propY * Time.deltaTime;
         }
         else
         {

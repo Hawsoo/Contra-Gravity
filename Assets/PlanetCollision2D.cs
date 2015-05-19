@@ -54,6 +54,7 @@ public class PlanetCollision2D : MonoBehaviour
         {
             float[] distances = new float[rays];
             RaycastHit2D rayHit;
+            Vector3 origin = new Vector3(transform.position.x, transform.position.y) + (transform.rotation * basePoint);
 
             // Shoot raycasts
             for (int i = 0; i < rays; i++)
@@ -64,21 +65,22 @@ public class PlanetCollision2D : MonoBehaviour
                 float propY = Mathf.Sin(angle * Mathf.Deg2Rad);
 
                 // Cast ray
-                rayHit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + basePoint, new Vector2(propX, propY), 50);
+                rayHit = Physics2D.Raycast(origin, new Vector2(propX, propY), 50);
                 if (rayHit.collider != null
                     && rayHit.collider.gameObject.tag == "Ground")
                 {
                     // Record distance
                     distances[i] = rayHit.distance;
+                    Debug.DrawLine(origin, rayHit.centroid, Color.green);
                 }
             }
 
             // Find lowest (if not 0)
             int index = 0;
-            float dist = -1;
+            float dist = int.MaxValue;
             for (int i = 0; i < distances.Length; i++)
             {
-                if (distances[i] != 0 && distances[i] > dist)
+                if (distances[i] != 0 && distances[i] < dist)
                 {
                     index = i;
                     dist = distances[i];
@@ -90,7 +92,13 @@ public class PlanetCollision2D : MonoBehaviour
 
             // Set angle to lowest
             // TODO: fix this
-            EntityProperties.gravDir = 360f / rays * index;
+            float angle2 = (360f / rays * index);
+            EntityProperties.gravDir = angle2;
+
+            float propX2 = Mathf.Cos(angle2 * Mathf.Deg2Rad);
+            float propY2 = Mathf.Sin(angle2 * Mathf.Deg2Rad);
+
+            Debug.DrawRay(origin, new Vector2(propX2, propY2), Color.magenta);
         }
 	}
     

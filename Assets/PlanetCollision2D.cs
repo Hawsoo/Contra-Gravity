@@ -6,6 +6,9 @@ public class PlanetCollision2D : MonoBehaviour
     public Vector2 rayLeft;
     public Vector2 rayRight;
 
+    public Vector2 basePoint;
+    public int rays = 36;
+
     [SerializeField]
     private bool leftHit = false;
     [SerializeField]
@@ -49,7 +52,45 @@ public class PlanetCollision2D : MonoBehaviour
         // In midair
         else
         {
-            // TODO: create code for finding closest planet
+            float[] distances = new float[rays];
+            RaycastHit2D rayHit;
+
+            // Shoot raycasts
+            for (int i = 0; i < rays; i++)
+            {
+                // Setup ray test
+                float angle = 360f / rays * i;
+                float propX = Mathf.Cos(angle * Mathf.Deg2Rad);
+                float propY = Mathf.Sin(angle * Mathf.Deg2Rad);
+
+                // Cast ray
+                rayHit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + basePoint, new Vector2(propX, propY), 50);
+                if (rayHit.collider != null
+                    && rayHit.collider.gameObject.tag == "Ground")
+                {
+                    // Record distance
+                    distances[i] = rayHit.distance;
+                }
+            }
+
+            // Find lowest (if not 0)
+            int index = 0;
+            float dist = -1;
+            for (int i = 0; i < distances.Length; i++)
+            {
+                if (distances[i] != 0 && distances[i] > dist)
+                {
+                    index = i;
+                    dist = distances[i];
+                }
+            }
+
+            // BETA: Record
+            Debug.Log("lowest: " + dist);
+
+            // Set angle to lowest
+            // TODO: fix this
+            EntityProperties.gravDir = 360f / rays * index;
         }
 	}
     

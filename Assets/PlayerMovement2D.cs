@@ -28,15 +28,12 @@ public class PlayerMovement2D : MonoBehaviour
 	// Update
     void FixedUpdate()
     {
-        //obj.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-
         // Set direction of player according to gravity
         float angle = Mathf.MoveTowardsAngle(
             transform.eulerAngles.z - 90,
             EntityProperties.gravDir,
             spinSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
-
 
 
         // Modify controller

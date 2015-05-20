@@ -6,8 +6,8 @@ public class PlanetCollision2D : MonoBehaviour
     public Vector2 rayLeft;
     public Vector2 rayRight;
 
-    public Vector2 basePoint;
-    public int rays = 36;
+    //public Vector2 basePoint;
+    public int rays;
 
     [SerializeField]
     private bool leftHit = false;
@@ -54,7 +54,7 @@ public class PlanetCollision2D : MonoBehaviour
         {
             float[] distances = new float[rays];
             RaycastHit2D rayHit;
-            Vector3 origin = new Vector3(transform.position.x, transform.position.y) + (transform.rotation * basePoint);
+            Vector3 origin = new Vector3(transform.position.x, transform.position.y)/* + (transform.rotation * basePoint)*/;
 
             // Shoot raycasts
             for (int i = 0; i < rays; i++)

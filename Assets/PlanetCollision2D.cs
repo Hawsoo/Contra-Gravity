@@ -18,16 +18,11 @@ public class PlanetCollision2D : MonoBehaviour
     [SerializeField]
     private float rightDist = 0;
 
-	// Init
-	void Start()
-	{
-		
-	}
-
 	// Update
 	void Update()
 	{
-        //Quaternion.Euler(60, 0, 0) * Vector3.forward;
+        // Exit if flagged so
+        if (GetComponent<EntityProperties>().inStaticGravField) return;
 
         EntityProperties p = GetComponent<EntityProperties>();
 
@@ -52,28 +47,8 @@ public class PlanetCollision2D : MonoBehaviour
         // In midair
         else
         {
-            float[] distances = new float[rays];
-            RaycastHit2D rayHit;
-            Vector3 origin = new Vector3(transform.position.x, transform.position.y)/* + (transform.rotation * basePoint)*/;
-
-            // Shoot raycasts
-            for (int i = 0; i < rays; i++)
-            {
-                // Setup ray test
-                float angle = 360f / rays * i;
-                float propX = Mathf.Cos(angle * Mathf.Deg2Rad);
-                float propY = Mathf.Sin(angle * Mathf.Deg2Rad);
-
-                // Cast ray
-                rayHit = Physics2D.Raycast(origin, new Vector2(propX, propY), 50);
-                if (rayHit.collider != null
-                    && rayHit.collider.gameObject.tag == "Ground")
-                {
-                    // Record distance
-                    distances[i] = rayHit.distance;
-                    Debug.DrawLine(origin, rayHit.centroid, Color.green);
-                }
-            }
+            Vector3 origin = new Vector3(transform.position.x, transform.position.y);
+            float[] distances = CircleRayCast(rays, origin);
 
             // Find lowest (if not 0)
             int index = 0;
@@ -101,7 +76,36 @@ public class PlanetCollision2D : MonoBehaviour
             Debug.DrawRay(origin, new Vector2(propX2, propY2), Color.magenta);
         }
 	}
+
+    // Do a circular raycast outward from origin
+    private float[] CircleRayCast(int rays, Vector3 origin)
+    {
+        float[] raycasts = new float[rays];
+        RaycastHit2D rayHit;
+
+        // Shoot raycasts
+        for (int i = 0; i < rays; i++)
+        {
+            // Setup ray test
+            float angle = 360f / rays * i;
+            float propX = Mathf.Cos(angle * Mathf.Deg2Rad);
+            float propY = Mathf.Sin(angle * Mathf.Deg2Rad);
+
+            // Cast ray
+            rayHit = Physics2D.Raycast(origin, new Vector2(propX, propY), 50);
+            if (rayHit.collider != null
+                && rayHit.collider.gameObject.tag == "Ground")
+            {
+                // Record distance
+                raycasts[i] = rayHit.distance;
+                Debug.DrawLine(origin, rayHit.centroid, Color.green);
+            }
+        }
+
+        return raycasts;
+    }
     
+    // Do prong-like raycasts & record distances
     private void CalculateRayCastLeftRight()
     {
         // Setup ray test

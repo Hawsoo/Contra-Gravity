@@ -29,12 +29,10 @@ public class PlayerMovement2D : MonoBehaviour
 	{
         if (startRight)
         {
-            GetComponentInChildren<Animator>().Play("idle_right");
             direction = 1;
         }
         else
         {
-            GetComponentInChildren<Animator>().Play("idle_left");
             direction = -1;
         }
 	}

@@ -10,8 +10,10 @@ public class PlayerMovement2D : MonoBehaviour
     public float maxDX = 10;
     public float spinSpeed;
 
-    public GameObject obj;
+    public bool startRight = true;
 
+    public GameObject obj;
+    [SerializeField]
     private float hspeed;
     private float vspeed;
 
@@ -19,10 +21,22 @@ public class PlayerMovement2D : MonoBehaviour
     private float mHsp;
     private float mVsp;
 
+    [System.NonSerialized]
+    public int direction;      // -1 = left, 1 = right
+
 	// Init
 	void Start()
 	{
-		
+        if (startRight)
+        {
+            GetComponentInChildren<Animator>().Play("idle_right");
+            direction = 1;
+        }
+        else
+        {
+            GetComponentInChildren<Animator>().Play("idle_left");
+            direction = -1;
+        }
 	}
 	
 	// Update
@@ -37,7 +51,6 @@ public class PlayerMovement2D : MonoBehaviour
 
 
         // Modify controller
-        CharacterController c = GetComponent<CharacterController>();
         EntityProperties p = GetComponent<EntityProperties>();
 
         // Set up directional proportions
@@ -75,6 +88,9 @@ public class PlayerMovement2D : MonoBehaviour
 
         // Move
         GetComponent<Rigidbody2D>().velocity = new Vector2(mHsp, mVsp);
+
+        // Update Animation
+        GetComponentInChildren<PlayerAnimationHandler>().AniUpdate(direction, dx);
 	}
 
     // Flag on ground

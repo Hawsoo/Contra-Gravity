@@ -89,6 +89,7 @@ public class PlayerMovement2D : MonoBehaviour
 
         // Update Animation
         GetComponentInChildren<PlayerAnimationHandler>().AniUpdate(direction, dx);
+        GetComponentInChildren<ContraAnimationHandler>().AniUpdate();
 	}
 
     // Flag on ground

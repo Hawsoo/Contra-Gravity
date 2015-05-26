@@ -31,7 +31,7 @@ public class PlayerMovementAlt : MonoBehaviour
         // Set direction of player according to gravity
         float angle = Mathf.MoveTowardsAngle(
             transform.eulerAngles.z - 90,
-            EntityProperties.gravDir,
+            GetComponent<EntityProperties>().gravDir,
             spinSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
 
@@ -42,8 +42,8 @@ public class PlayerMovementAlt : MonoBehaviour
         EntityProperties p = GetComponent<EntityProperties>();
 
         // Set up directional proportions
-        float propX = Mathf.Cos(EntityProperties.gravDir * Mathf.Deg2Rad);
-        float propY = Mathf.Sin(EntityProperties.gravDir * Mathf.Deg2Rad);
+        float propX = Mathf.Cos(GetComponent<EntityProperties>().gravDir * Mathf.Deg2Rad);
+        float propY = Mathf.Sin(GetComponent<EntityProperties>().gravDir * Mathf.Deg2Rad);
 
         // Get input
         dx = Input.GetAxis("Horizontal") * multiplier;
@@ -68,8 +68,8 @@ public class PlayerMovementAlt : MonoBehaviour
         }
 
         // Proportion horizontal input movement
-        propX = Mathf.Cos((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
-        propY = Mathf.Sin((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
+        propX = Mathf.Cos((GetComponent<EntityProperties>().gravDir + 90) * Mathf.Deg2Rad);
+        propY = Mathf.Sin((GetComponent<EntityProperties>().gravDir + 90) * Mathf.Deg2Rad);
 
         float mHsp = hspeed + (dx * propX);
         float mVsp = vspeed + (dx * propY);

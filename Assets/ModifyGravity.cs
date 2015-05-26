@@ -12,7 +12,7 @@ public class ModifyGravity : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             // Switch player's gravity
-            EntityProperties.gravDir = transform.rotation.eulerAngles.z + gravDirOffset;
+            GetComponent<EntityProperties>().gravDir = transform.rotation.eulerAngles.z + gravDirOffset;
         }
     }
 }

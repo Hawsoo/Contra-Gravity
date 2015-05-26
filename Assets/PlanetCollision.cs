@@ -15,17 +15,9 @@ public class PlanetCollision : MonoBehaviour
     [SerializeField]
     private float rightDist = 0;
 
-	// Init
-	void Start()
-	{
-		
-	}
-
 	// Update
 	void Update()
 	{
-        //Quaternion.Euler(60, 0, 0) * Vector3.forward;
-
         EntityProperties p = GetComponent<EntityProperties>();
 
         // On ground
@@ -45,7 +37,7 @@ public class PlanetCollision : MonoBehaviour
                 Debug.Log(angle);
 
                 // Set grav direction to correct angle
-                EntityProperties.gravDir = angle - 90;
+                GetComponent<EntityProperties>().gravDir = angle - 90;
 
             }
         }

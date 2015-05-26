@@ -13,7 +13,7 @@ public class ModifyGravity2D : MonoBehaviour
         {
             // Switch player's gravity
             other.GetComponent<EntityProperties>().inStaticGravField = true;
-            EntityProperties.gravDir = transform.rotation.eulerAngles.z + gravDirOffset;
+            other.GetComponent<EntityProperties>().gravDir = transform.rotation.eulerAngles.z + gravDirOffset;
         }
     }
 

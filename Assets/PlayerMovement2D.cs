@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement2D : MonoBehaviour
 {
     public float multiplier = 20;
-    public float gravity = 0.5f;
+    public float gravity;
     public float jumpheight = 15;
 
     public float maxDX = 10;
@@ -13,13 +13,15 @@ public class PlayerMovement2D : MonoBehaviour
     public bool startRight = true;
 
     public GameObject obj;
-    [SerializeField]
     private float hspeed;
     private float vspeed;
 
     private float dx;
     private float mHsp;
     private float mVsp;
+
+    private bool flipped = false;
+    private float flipTime;
 
     [System.NonSerialized]
     public int direction;      // -1 = left, 1 = right
@@ -36,14 +38,30 @@ public class PlayerMovement2D : MonoBehaviour
             direction = -1;
         }
 	}
+
+    // Flips character
+    public void Flip()
+    {
+        flipped = true;
+        flipTime = 0.5f;
+    }
 	
 	// Update
     void FixedUpdate()
     {
         // Set direction of player according to gravity
+        float targetAngle = GetComponent<EntityProperties>().gravDir;
+        if (flipped)
+        {
+            targetAngle += 180;
+
+            flipTime -= Time.deltaTime;
+            if (flipTime <= 0) flipped = false;
+        }
+
         float angle = Mathf.MoveTowardsAngle(
             transform.eulerAngles.z - 90,
-            EntityProperties.gravDir,
+            targetAngle,
             spinSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
 
@@ -52,8 +70,8 @@ public class PlayerMovement2D : MonoBehaviour
         EntityProperties p = GetComponent<EntityProperties>();
 
         // Set up directional proportions
-        float propX = Mathf.Cos(EntityProperties.gravDir * Mathf.Deg2Rad);
-        float propY = Mathf.Sin(EntityProperties.gravDir * Mathf.Deg2Rad);
+        float propX = Mathf.Cos(targetAngle * Mathf.Deg2Rad);
+        float propY = Mathf.Sin(targetAngle * Mathf.Deg2Rad);
 
         // Get input
         dx = Input.GetAxis("Horizontal") * multiplier;
@@ -78,8 +96,8 @@ public class PlayerMovement2D : MonoBehaviour
         }
 
         // Proportion horizontal input movement
-        propX = Mathf.Cos((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
-        propY = Mathf.Sin((EntityProperties.gravDir + 90) * Mathf.Deg2Rad);
+        propX = Mathf.Cos((targetAngle + 90) * Mathf.Deg2Rad);
+        propY = Mathf.Sin((targetAngle + 90) * Mathf.Deg2Rad);
 
         mHsp = hspeed + (dx * propX);
         mVsp = vspeed + (dx * propY);

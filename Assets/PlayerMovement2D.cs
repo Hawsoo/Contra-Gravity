@@ -20,9 +20,6 @@ public class PlayerMovement2D : MonoBehaviour
     private float mHsp;
     private float mVsp;
 
-    private bool flipped = false;
-    private float flipTime;
-
     [System.NonSerialized]
     public int direction;      // -1 = left, 1 = right
 
@@ -38,25 +35,24 @@ public class PlayerMovement2D : MonoBehaviour
             direction = -1;
         }
 	}
-
-    // Flips character
-    public void Flip()
-    {
-        flipped = true;
-        flipTime = 0.5f;
-    }
 	
 	// Update
     void FixedUpdate()
     {
         // Set direction of player according to gravity
         float targetAngle = GetComponent<EntityProperties>().gravDir;
-        if (flipped)
+        if (GetComponent<EntityProperties>().flipped)
         {
+            GetComponent<EntityProperties>().mistParticles.SetActive(true);
             targetAngle += 180;
 
-            flipTime -= Time.deltaTime;
-            if (flipTime <= 0) flipped = false;
+            GetComponent<EntityProperties>().flipTime -= Time.deltaTime;
+            if (GetComponent<EntityProperties>().flipTime <= 0) GetComponent<EntityProperties>().flipped = false;
+        }
+        else
+        {
+            if (!GetComponent<EntityProperties>().inStaticGravField)
+                GetComponent<EntityProperties>().mistParticles.SetActive(false);
         }
 
         float angle = Mathf.MoveTowardsAngle(
@@ -64,7 +60,6 @@ public class PlayerMovement2D : MonoBehaviour
             targetAngle,
             spinSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
-
 
         // Modify controller
         EntityProperties p = GetComponent<EntityProperties>();

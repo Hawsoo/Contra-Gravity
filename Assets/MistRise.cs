@@ -4,6 +4,7 @@ using System.Collections;
 public class MistRise : MonoBehaviour
 {
     public float gravity;
+    public float timeFlipped;
 
     // Update
 	void Update ()
@@ -19,9 +20,9 @@ public class MistRise : MonoBehaviour
     // Flag on ground
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Entity")
         {
-            other.GetComponent<PlayerMovement2D>().Flip();
+            other.GetComponent<EntityProperties>().Flip(timeFlipped);
             Destroy(gameObject);
         }
     }

@@ -8,8 +8,10 @@ enum HornPosition
 
 public class ContraAnimationHandler : MonoBehaviour
 {
+    public PlayerMovement2D player;
+
     private bool xHeld = false;
-    private bool spaceHeld = false;
+    private bool cHeld = false;
 
     private HornPosition hornpos = HornPosition.CARRY;
 
@@ -20,7 +22,7 @@ public class ContraAnimationHandler : MonoBehaviour
     public void AniUpdate()
     {
         // Toggle horn position
-        if (Input.GetKey(KeyCode.Space) && !spaceHeld)
+        if (Input.GetKey(KeyCode.C) && !cHeld)
         {
             if (hornpos == HornPosition.CARRY)
             {
@@ -38,11 +40,15 @@ public class ContraAnimationHandler : MonoBehaviour
             }
         }
 
+        // Attack
         if (hornpos == HornPosition.CARRY)
         {
             // Attack
             if (Input.GetKey(KeyCode.X) && !xHeld)
             {
+                player.canMove = false;
+                GetComponent<BoxCollider2D>().enabled = true;
+
                 if (attack3)
                 {
                     attack3 = false;
@@ -59,10 +65,21 @@ public class ContraAnimationHandler : MonoBehaviour
                 }
             }
         }
+        // Blow/Play
+        else
+        {
+            // Blow/Play
+            if (Input.GetKey(KeyCode.X))
+            {
+                player.canMove = false;
+
+
+            }
+        }
 
         // Update lagging messages
         xHeld = Input.GetKey(KeyCode.X);
-        spaceHeld = Input.GetKey(KeyCode.Space);
+        cHeld = Input.GetKey(KeyCode.C);
     }
 
     // Messages
@@ -70,4 +87,5 @@ public class ContraAnimationHandler : MonoBehaviour
     void DisallowAttack2() { attack2 = false; }
     void AllowAttack3() { attack3 = true; }
     void DisallowAttack3() { attack3 = false; }
+    void EndOfAttack() { player.canMove = true; GetComponent<BoxCollider2D>().enabled = false; }
 }

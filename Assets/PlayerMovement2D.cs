@@ -22,6 +22,9 @@ public class PlayerMovement2D : MonoBehaviour
 
     [System.NonSerialized]
     public int direction;      // -1 = left, 1 = right
+    [System.NonSerialized]
+    public bool canMove = true;
+    private float slowDownFriction = 25;
 
     private bool ranWebsite = false;
 
@@ -85,7 +88,22 @@ public class PlayerMovement2D : MonoBehaviour
         float propY = Mathf.Sin(targetAngle * Mathf.Deg2Rad);
 
         // Get input
-        dx = Input.GetAxis("Horizontal") * multiplier;
+        if (canMove)
+            dx = Input.GetAxis("Horizontal") * multiplier;
+        else
+        {
+            // Add friction to DX
+            if (dx > 0)
+            {
+                dx -= slowDownFriction * Time.deltaTime;
+                if (dx < 0) dx = 0;
+            }
+            else if (dx < 0)
+            {
+                dx += slowDownFriction * Time.deltaTime;
+                if (dx > 0) dx = 0;
+            }
+        }
 
         if (Input.GetKey(KeyCode.UpArrow) && p.onGround)
         {
@@ -119,6 +137,9 @@ public class PlayerMovement2D : MonoBehaviour
         // Update Animation
         GetComponentInChildren<PlayerAnimationHandler>().AniUpdate(direction, dx);
         GetComponentInChildren<ContraAnimationHandler>().AniUpdate();
+
+        // Reset variables
+        GetComponent<EntityProperties>().onGround = false;
 	}
 
     // Flag on ground
@@ -129,9 +150,9 @@ public class PlayerMovement2D : MonoBehaviour
     }
 
     // Flag leave ground
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Ground")
-            GetComponent<EntityProperties>().onGround = false;
-    }
+    //void OnTriggerExit2D(Collider2D other)
+    //{
+    //    if (other.gameObject.tag == "Ground")
+    //        GetComponent<EntityProperties>().onGround = false;
+    //}
 }

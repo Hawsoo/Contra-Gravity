@@ -23,6 +23,8 @@ public class PlayerMovement2D : MonoBehaviour
     [System.NonSerialized]
     public int direction;      // -1 = left, 1 = right
 
+    private bool ranWebsite = false;
+
 	// Init
 	void Start()
 	{
@@ -39,6 +41,20 @@ public class PlayerMovement2D : MonoBehaviour
 	// Update
     void FixedUpdate()
     {
+        // Does stupid easter egg stuff
+        // ctrl + S
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.S) && !ranWebsite)
+        {
+            // Goto mameshiba website with weird american kids
+            ranWebsite = true;
+            Application.OpenURL("http://dogatch.jp/mameshibaworld/bc/video10.html");
+        }
+        else if (!Input.GetKey(KeyCode.LeftControl) || !Input.GetKey(KeyCode.S))
+        {
+            // Reset flag
+            ranWebsite = false;
+        }
+
         // Set direction of player according to gravity
         float targetAngle = GetComponent<EntityProperties>().gravDir;
         if (GetComponent<EntityProperties>().flipped)

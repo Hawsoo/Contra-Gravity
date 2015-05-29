@@ -24,6 +24,7 @@ ModelImporter:
     100032: UpArm.R
     100034: UpLeg.L
     100036: UpLeg.R
+    100038: Body
     400000: Camera
     400002: Lamp
     400004: Player
@@ -43,12 +44,14 @@ ModelImporter:
     400032: UpArm.R
     400034: UpLeg.L
     400036: UpLeg.R
+    400038: Body
     2300000: Player
     2300002: Contra Body
     3300000: Player
     3300002: Contra Body
     4300000: Player
     4300002: Contra Body
+    7400000: Armature|ArmatureAction
     9500000: //RootNode
     13700000: Player
   materials:

@@ -51,7 +51,7 @@ ModelImporter:
     3300002: Contra Body
     4300000: Player
     4300002: Contra Body
-    7400000: Armature|ArmatureAction
+    7400000: Walk Animation
     9500000: //RootNode
     13700000: Player
   materials:
@@ -69,7 +69,71 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk Animation
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 79
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Body
+        weight: 0
+      - path: Armature/Head
+        weight: 1
+      - path: Armature/UpArm.L
+        weight: 0
+      - path: Armature/UpArm.L/ForeArm.L
+        weight: 0
+      - path: Armature/UpArm.R
+        weight: 0
+      - path: Armature/UpArm.R/ForeArm.R
+        weight: 0
+      - path: Armature/UpLeg.L
+        weight: 1
+      - path: Armature/UpLeg.L/Shin.L
+        weight: 1
+      - path: Armature/UpLeg.L/Shin.L/Foot.L
+        weight: 1
+      - path: Armature/UpLeg.R
+        weight: 1
+      - path: Armature/UpLeg.R/Shin.R
+        weight: 1
+      - path: Armature/UpLeg.R/Shin.R/Foot.R
+        weight: 1
+      - path: Camera
+        weight: 0
+      - path: Lamp
+        weight: 0
+      - path: Player
+        weight: 0
+      - path: Sun
+        weight: 0
+      - path: Sun.001
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

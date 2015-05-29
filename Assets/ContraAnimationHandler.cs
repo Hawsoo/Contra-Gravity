@@ -69,11 +69,17 @@ public class ContraAnimationHandler : MonoBehaviour
         else
         {
             // Blow/Play
-            if (Input.GetKey(KeyCode.X))
+            if (Input.GetKey(KeyCode.X) && !xHeld)
             {
                 player.canMove = false;
-
-
+                GetComponent<AudioSource>().Play();
+                GetComponent<Animator>().Play("contra_play");
+            }
+            else if (!Input.GetKey(KeyCode.X) && xHeld)
+            {
+                player.canMove = true;
+                GetComponent<AudioSource>().Stop();
+                GetComponent<Animator>().Play("contra_up");
             }
         }
 

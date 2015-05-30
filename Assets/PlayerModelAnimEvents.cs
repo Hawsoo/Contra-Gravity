@@ -5,7 +5,6 @@ public class PlayerModelAnimEvents : MonoBehaviour
 {
 	void TurnOffHornChange()
     {
-        Debug.Log("Happened");
         GetComponent<Animator>().SetBool("HornChanged", false);
     }
 

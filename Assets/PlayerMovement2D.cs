@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PlayerMovement2D : MonoBehaviour
 {
-    public Animator playerModel;
-
     public float multiplier = 20;
     public float gravity;
     public float jumpheight = 15;
@@ -107,10 +105,6 @@ public class PlayerMovement2D : MonoBehaviour
             }
         }
 
-        // Update animation components
-        playerModel.SetBool("Walking", Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1);
-
-        // Jump
         if (Input.GetKey(KeyCode.UpArrow) && p.onGround)
         {
             hspeed = jumpheight * -propX;
@@ -123,15 +117,11 @@ public class PlayerMovement2D : MonoBehaviour
         {
             hspeed = gravity * propX * Time.deltaTime;
             vspeed = gravity * propY * Time.deltaTime;
-
-            playerModel.SetBool("Jump", false);
         }
         else
         {
             hspeed += gravity * propX * Time.deltaTime;
             vspeed += gravity * propY * Time.deltaTime;
-
-            playerModel.SetBool("Jump", true);
         }
 
         // Proportion horizontal input movement

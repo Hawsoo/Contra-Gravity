@@ -8,8 +8,7 @@ enum HornPosition
 
 public class ContraAnimationHandler : MonoBehaviour
 {
-    public PlayerMovement2D playerMove;
-    public Animator playerAnim;
+    public PlayerMovement2D player;
 
     private bool xHeld = false;
     private bool cHeld = false;
@@ -25,13 +24,9 @@ public class ContraAnimationHandler : MonoBehaviour
         // Toggle horn position
         if (Input.GetKey(KeyCode.C) && !cHeld)
         {
-            playerMove.canMove = false;
-            playerAnim.SetBool("HornChanged", true);
-
             if (hornpos == HornPosition.CARRY)
             {
                 hornpos = HornPosition.UP;
-                playerAnim.SetBool("HornUp", true);
 
                 // Horns up
                 GetComponent<Animator>().Play("horn_up");
@@ -39,7 +34,6 @@ public class ContraAnimationHandler : MonoBehaviour
             else if (hornpos == HornPosition.UP)
             {
                 hornpos = HornPosition.CARRY;
-                playerAnim.SetBool("HornUp", false);
 
                 // Horns down
                 GetComponent<Animator>().Play("horn_down");
@@ -52,7 +46,7 @@ public class ContraAnimationHandler : MonoBehaviour
             // Attack
             if (Input.GetKey(KeyCode.X) && !xHeld)
             {
-                playerMove.canMove = false;
+                player.canMove = false;
                 GetComponent<BoxCollider2D>().enabled = true;
 
                 if (attack3)
@@ -77,13 +71,13 @@ public class ContraAnimationHandler : MonoBehaviour
             // Blow/Play
             if (Input.GetKey(KeyCode.X) && !xHeld)
             {
-                playerMove.canMove = false;
+                player.canMove = false;
                 GetComponent<AudioSource>().Play();
                 GetComponent<Animator>().Play("contra_play");
             }
             else if (!Input.GetKey(KeyCode.X) && xHeld)
             {
-                playerMove.canMove = true;
+                player.canMove = true;
                 GetComponent<AudioSource>().Stop();
                 GetComponent<Animator>().Play("contra_up");
             }
@@ -99,5 +93,5 @@ public class ContraAnimationHandler : MonoBehaviour
     void DisallowAttack2() { attack2 = false; }
     void AllowAttack3() { attack3 = true; }
     void DisallowAttack3() { attack3 = false; }
-    void EndOfAttack() { playerMove.canMove = true; GetComponent<BoxCollider2D>().enabled = false; }
+    void EndOfAttack() { player.canMove = true; GetComponent<BoxCollider2D>().enabled = false; }
 }

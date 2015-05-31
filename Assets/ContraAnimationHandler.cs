@@ -25,7 +25,7 @@ public class ContraAnimationHandler : MonoBehaviour
         // Toggle horn position
         if (Input.GetKey(KeyCode.C) && !cHeld)
         {
-            playerMove.canMove = false;
+            //playerMove.canMove = false;
             playerAnim.SetBool("HornChanged", true);
 
             if (hornpos == HornPosition.CARRY)

@@ -145,7 +145,7 @@ public class PlayerMovement2D : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = new Vector2(mHsp, mVsp);
 
         // Update Animation
-        GetComponentInChildren<PlayerAnimationHandler>().AniUpdate(direction, dx);
+        GetComponentInChildren<AvatarAnimationHandler>().AniUpdate(direction, dx);
         GetComponentInChildren<ContraAnimationHandler>().AniUpdate();
 
         // Reset variables

@@ -10,6 +10,6 @@ public class PlayerModelAnimEvents : MonoBehaviour
 
     void EndHornChange()
     {
-        GetComponentInParent<PlayerMovement2D>().canMove = true;
+        //GetComponentInParent<PlayerMovement2D>().canMove = true;
     }
 }

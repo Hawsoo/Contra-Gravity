@@ -137,8 +137,8 @@ public class PlayerMovement2D : MonoBehaviour
         // Got hit
         if (p.IsHit())
         {
-            propX = Mathf.Cos((targetAngle + 45) * Mathf.Deg2Rad);
-            propY = Mathf.Sin((targetAngle + 45) * Mathf.Deg2Rad);
+            propX = Mathf.Cos((targetAngle + (45 * direction)) * Mathf.Deg2Rad);
+            propY = Mathf.Sin((targetAngle + (45 * direction)) * Mathf.Deg2Rad);
 
             // Launch in certain direction
             hspeed = launchheight * -propX;
@@ -169,5 +169,20 @@ public class PlayerMovement2D : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground")
             GetComponent<EntityProperties>().onGround = true;
+
+        // Hit any entity
+        if (other.gameObject.tag == "Entity")
+        {
+            StartCoroutine("Pause", 0.15f);
+            other.GetComponent<EntityProperties>().SendHit();
+        }
+    }
+
+    // Coroutines
+    private IEnumerator Pause(float p)
+    {
+        Time.timeScale = .0001f;
+        yield return new WaitForSeconds(p * Time.timeScale);
+        Time.timeScale = 1.0f;
     }
 }

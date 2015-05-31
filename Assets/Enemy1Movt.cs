@@ -49,15 +49,20 @@ public class Enemy1Movt : MonoBehaviour
         // Apply gravity
         if (p.onGround)
         {
-            attackBubble.gameObject.SetActive(true);
             hspeed = gravity * propX * Time.deltaTime;
             vspeed = gravity * propY * Time.deltaTime;
         }
         else
         {
-            attackBubble.gameObject.SetActive(false);
             hspeed += gravity * propX * Time.deltaTime;
             vspeed += gravity * propY * Time.deltaTime;
+        }
+
+        // Got hit
+        if (p.IsHit())
+        {
+            // BETA: destroy self
+            Destroy(gameObject);
         }
 
         // AI
@@ -127,13 +132,17 @@ public class Enemy1Movt : MonoBehaviour
 
         // Reset variables
         p.onGround = false;
+        attackBubble.gameObject.SetActive(false);
 	}
 
     // Flag on ground
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.tag == "Ground")
+        {
             GetComponent<EntityProperties>().onGround = true;
+            attackBubble.gameObject.SetActive(true);
+        }
 
         // Trigger attack
         if (other.gameObject.tag == "Entity"

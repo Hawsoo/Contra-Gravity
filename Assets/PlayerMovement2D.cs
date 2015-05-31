@@ -6,11 +6,11 @@ public class PlayerMovement2D : MonoBehaviour
     public Animator playerModel;
 
     public float multiplier = 20;
-    public float gravity;
-    public float jumpheight = 15;
+    public float gravity = 70;
+    public float jumpheight = 25;
+    public float launchheight = 40;
 
     public float maxDX = 10;
-    public float spinSpeed;
 
     public bool startRight = true;
 
@@ -79,7 +79,7 @@ public class PlayerMovement2D : MonoBehaviour
         float angle = Mathf.MoveTowardsAngle(
             transform.eulerAngles.z - 90,
             targetAngle,
-            spinSpeed * Time.deltaTime);
+            EntityProperties.spinSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
 
         // Modify controller
@@ -134,6 +134,18 @@ public class PlayerMovement2D : MonoBehaviour
             playerModel.SetBool("Jump", true);
         }
 
+        // Got hit
+        if (p.IsHit())
+        {
+            propX = Mathf.Cos((targetAngle + 45) * Mathf.Deg2Rad);
+            propY = Mathf.Sin((targetAngle + 45) * Mathf.Deg2Rad);
+
+            // Launch in certain direction
+            hspeed = launchheight * -propX;
+            vspeed = launchheight * -propY;
+            p.onGround = false;
+        }
+
         // Proportion horizontal input movement
         propX = Mathf.Cos((targetAngle + 90) * Mathf.Deg2Rad);
         propY = Mathf.Sin((targetAngle + 90) * Mathf.Deg2Rad);
@@ -158,11 +170,4 @@ public class PlayerMovement2D : MonoBehaviour
         if (other.gameObject.tag == "Ground")
             GetComponent<EntityProperties>().onGround = true;
     }
-
-    // Flag leave ground
-    //void OnTriggerExit2D(Collider2D other)
-    //{
-    //    if (other.gameObject.tag == "Ground")
-    //        GetComponent<EntityProperties>().onGround = false;
-    //}
 }

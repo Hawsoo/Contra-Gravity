@@ -47,6 +47,7 @@ public class PlanetCollision2D : MonoBehaviour
         else
         {
             Vector3 origin = new Vector3(transform.position.x, transform.position.y);
+            Debug.DrawLine(origin, origin + new Vector3(0, 1, 0), Color.blue);
             float[] distances = CircleRayCast(rays, origin);
 
             if (distances != null)

@@ -93,7 +93,9 @@ ModelImporter:
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
-    extraExposedTransformPaths: []
+    extraExposedTransformPaths:
+    - Armature/UpArm.L
+    - Armature/UpArm.R
     clipAnimations:
     - serializedVersion: 16
       name: Idle

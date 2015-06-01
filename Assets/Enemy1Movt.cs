@@ -24,6 +24,9 @@ public class Enemy1Movt : MonoBehaviour
     public float chanceMoving = .7f;
     public float chanceTurn = .05f;
 
+    private bool attack = false;
+    private bool attackRight = false;
+
     public float actionDuration;
     private float actionTimer = 0;
 
@@ -86,6 +89,7 @@ public class Enemy1Movt : MonoBehaviour
                     if (moving)
                     {
                         action = Action.MOVE;
+                        if (attack) { action = Action.ATTACK; }
                     }
                     else
                     {
@@ -117,6 +121,14 @@ public class Enemy1Movt : MonoBehaviour
                             break;
 
                         case Action.ATTACK:
+                            if (attackRight)
+                            {
+                                dx = moveSpeed * 2;
+                            }
+                            else
+                            {
+                                dx = -moveSpeed * 2;
+                            }
                             break;
                     }
                 }
@@ -132,7 +144,8 @@ public class Enemy1Movt : MonoBehaviour
 
         // Reset variables
         p.onGround = false;
-        attackBubble.gameObject.SetActive(false);
+        attack = false;
+        //attackBubble.gameObject.SetActive(false);
 	}
 
     // Flag on ground
@@ -141,15 +154,15 @@ public class Enemy1Movt : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             GetComponent<EntityProperties>().onGround = true;
-            attackBubble.gameObject.SetActive(true);
+            //attackBubble.gameObject.SetActive(true);
         }
+    }
 
-        // Trigger attack
-        if (other.gameObject.tag == "Entity"
-            && other.gameObject.name == "Player")
-        {
-            // ATTACK THE PLAYER!!!!!
-        }
+    // Attack
+    void Attack(bool right)
+    {
+        attack = true;
+        attackRight = right;
     }
 
     // Repel player

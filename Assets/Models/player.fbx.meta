@@ -25,6 +25,12 @@ ModelImporter:
     100034: UpLeg.L
     100036: UpLeg.R
     100038: Body
+    100040: Body_end
+    100042: Foot.L_end
+    100044: Foot.R_end
+    100046: ForeArm.L_end
+    100048: ForeArm.R_end
+    100050: Head_end
     400000: Camera
     400002: Lamp
     400004: Player
@@ -45,6 +51,12 @@ ModelImporter:
     400034: UpLeg.L
     400036: UpLeg.R
     400038: Body
+    400040: Body_end
+    400042: Foot.L_end
+    400044: Foot.R_end
+    400046: ForeArm.L_end
+    400048: ForeArm.R_end
+    400050: Head_end
     2300000: Player
     2300002: Contra Body
     3300000: Player
@@ -62,6 +74,9 @@ ModelImporter:
     7400016: Horn Down
     7400018: Horn Up
     7400020: Armature|Walking
+    7400022: Armature|Idle
+    7400024: Armature|horn down
+    7400026: Armature|horn up
     9500000: //RootNode
     13700000: Player
   materials:
@@ -73,7 +88,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -145,10 +160,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Walking
-      takeName: Armature|Walking
+      name: Armature|Idle
+      takeName: Armature|Idle
       firstFrame: 0
-      lastFrame: 79
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -273,10 +288,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Jump Static
-      takeName: Armature|Jump Static
+      name: Armature|horn up
+      takeName: Armature|horn up
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -401,70 +416,6 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Horn Init
-      takeName: Armature|horn init
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Body
-        weight: 0
-      - path: Armature/Head
-        weight: 1
-      - path: Armature/UpArm.L
-        weight: 0
-      - path: Armature/UpArm.L/ForeArm.L
-        weight: 0
-      - path: Armature/UpArm.R
-        weight: 0
-      - path: Armature/UpArm.R/ForeArm.R
-        weight: 0
-      - path: Armature/UpLeg.L
-        weight: 1
-      - path: Armature/UpLeg.L/Shin.L
-        weight: 1
-      - path: Armature/UpLeg.L/Shin.L/Foot.L
-        weight: 1
-      - path: Armature/UpLeg.R
-        weight: 1
-      - path: Armature/UpLeg.R/Shin.R
-        weight: 1
-      - path: Armature/UpLeg.R/Shin.R/Foot.R
-        weight: 1
-      - path: Camera
-        weight: 0
-      - path: Lamp
-        weight: 0
-      - path: Player
-        weight: 0
-      - path: Sun
-        weight: 0
-      - path: Sun.001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
       name: Horn Up
       takeName: Armature|horn up
       firstFrame: 0
@@ -529,10 +480,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Horn Down
+      name: Armature|horn down
       takeName: Armature|horn down
       firstFrame: 0
-      lastFrame: 9
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -592,6 +543,82 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|Walking
+      takeName: Armature|Walking
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Body
+        weight: 0
+      - path: Armature/Body/Body_end
+        weight: 0
+      - path: Armature/Head
+        weight: 1
+      - path: Armature/Head/Head_end
+        weight: 0
+      - path: Armature/UpArm.L
+        weight: 0
+      - path: Armature/UpArm.L/ForeArm.L
+        weight: 0
+      - path: Armature/UpArm.L/ForeArm.L/ForeArm.L_end
+        weight: 0
+      - path: Armature/UpArm.R
+        weight: 0
+      - path: Armature/UpArm.R/ForeArm.R
+        weight: 0
+      - path: Armature/UpArm.R/ForeArm.R/ForeArm.R_end
+        weight: 0
+      - path: Armature/UpLeg.L
+        weight: 1
+      - path: Armature/UpLeg.L/Shin.L
+        weight: 1
+      - path: Armature/UpLeg.L/Shin.L/Foot.L
+        weight: 1
+      - path: Armature/UpLeg.L/Shin.L/Foot.L/Foot.L_end
+        weight: 0
+      - path: Armature/UpLeg.R
+        weight: 1
+      - path: Armature/UpLeg.R/Shin.R
+        weight: 1
+      - path: Armature/UpLeg.R/Shin.R/Foot.R
+        weight: 1
+      - path: Armature/UpLeg.R/Shin.R/Foot.R/Foot.R_end
+        weight: 0
+      - path: Camera
+        weight: 0
+      - path: Lamp
+        weight: 0
+      - path: Player
+        weight: 0
+      - path: Sun
+        weight: 0
+      - path: Sun.001
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -618,162 +645,8 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    human:
-    - boneName: Armature
-      humanName: Hips
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: UpLeg.L
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: UpLeg.R
-      humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Shin.L
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Shin.R
-      humanName: RightLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Foot.L
-      humanName: LeftFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Foot.R
-      humanName: RightFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Head
-      humanName: Spine
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    skeleton:
-    - name: player(Clone)
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: Armature
-      position: {x: .0191299617, y: 1.80848968, z: 0}
-      rotation: {x: -4.32977997e-17, y: .707106709, z: .707106829, w: -4.32978063e-17}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: UpLeg.L
-      position: {x: -.622362375, y: .208027184, z: .0148222074}
-      rotation: {x: -.47180748, y: -.51313895, z: .486506641, w: .526685417}
-      scale: {x: .999999642, y: .999999702, z: 1}
-      transformModified: 1
-    - name: Shin.L
-      position: {x: -1.09916982e-08, y: .966765225, z: -1.14319846e-07}
-      rotation: {x: .0193279684, y: .9990412, z: -.0391829684, w: .00281202793}
-      scale: {x: 1.00000012, y: 1.00000036, z: 1}
-      transformModified: 1
-    - name: Foot.L
-      position: {x: 2.51457095e-08, y: .6559484, z: -1.33495973e-07}
-      rotation: {x: -.475628793, y: -.546286702, z: -.479750186, w: .495164663}
-      scale: {x: .999999702, y: .999999523, z: .999999464}
-      transformModified: 1
-    - name: UpArm.L
-      position: {x: -.970643342, y: .282051563, z: 2.03966236}
-      rotation: {x: -.664557517, y: .109764069, z: .0991573408, w: .732450068}
-      scale: {x: .999999762, y: .999999762, z: .99999994}
-      transformModified: 1
-    - name: ForeArm.L
-      position: {x: -4.47034836e-08, y: 1.2164185, z: 9.31322575e-08}
-      rotation: {x: -.147304431, y: -.696630001, z: .0285795089, w: .701563418}
-      scale: {x: .999999642, y: 1, z: 1}
-      transformModified: 1
-    - name: UpLeg.R
-      position: {x: .660622299, y: .208027184, z: .0148221999}
-      rotation: {x: -.486506432, y: -.526685655, z: .471807659, w: .513138592}
-      scale: {x: .999999881, y: .999999762, z: 1.00000012}
-      transformModified: 1
-    - name: Shin.R
-      position: {x: -3.86514216e-08, y: .966765106, z: 3.62633727e-08}
-      rotation: {x: .0195648242, y: .999039888, z: .0390652195, w: .00323483348}
-      scale: {x: 1.00000036, y: 1.00000095, z: 1.00000012}
-      transformModified: 1
-    - name: Foot.R
-      position: {x: 5.0291419e-08, y: .655948222, z: 2.37487257e-08}
-      rotation: {x: -.48262009, y: -.491848558, z: -.472716421, w: .549274206}
-      scale: {x: .999999583, y: .999999344, z: .999999523}
-      transformModified: 1
-    - name: UpArm.R
-      position: {x: 1.00890326, y: .282051563, z: 2.03966236}
-      rotation: {x: -.661246121, y: -.0875092745, z: -.119257912, w: .73544091}
-      scale: {x: 1, y: .99999994, z: .99999994}
-      transformModified: 1
-    - name: ForeArm.R
-      position: {x: 7.4505806e-09, y: 1.21641862, z: -1.49011612e-08}
-      rotation: {x: -.030554004, y: -.733662605, z: .146907374, w: .662739694}
-      scale: {x: 1.00000012, y: 1.00000048, z: 1.00000012}
-      transformModified: 1
-    - name: Head
-      position: {x: .0472189821, y: 0, z: 2.75758839}
-      rotation: {x: .740917504, y: -4.59967104e-08, z: -5.07444291e-08, w: .67159611}
-      scale: {x: 1, y: .999999762, z: .999999642}
-      transformModified: 1
-    - name: Camera
-      position: {x: 7.48113155, y: 5.34366512, z: -6.50763988}
-      rotation: {x: -.210611373, y: .905240119, z: .0892816633, w: -.358066946}
-      scale: {x: 1, y: .99999994, z: 1}
-      transformModified: 1
-    - name: Lamp
-      position: {x: 2.86320424, y: 2.73329186, z: -3.67264748}
-      rotation: {x: .755880356, y: -.169075564, z: -.570947587, w: -.272171289}
-      scale: {x: .99999994, y: .999999821, z: .999999881}
-      transformModified: 1
-    - name: Player
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: -4.32977997e-17, y: .707106709, z: .707106829, w: -4.32978063e-17}
-      scale: {x: 1.4895494, y: 1, z: 2.46160173}
-      transformModified: 1
-    - name: Sun
-      position: {x: .722565174, y: 4.47298384, z: -3.53816175}
-      rotation: {x: -.123381756, y: .308886796, z: .913437247, w: -.234517157}
-      scale: {x: .999999881, y: 1, z: .999999881}
-      transformModified: 1
-    - name: Sun.001
-      position: {x: -2.45771432, y: -2.58350897, z: 3.1997695}
-      rotation: {x: -.0965615734, y: .372097343, z: -.56876117, w: .72713834}
-      scale: {x: .99999994, y: 1.00000012, z: .99999994}
-      transformModified: 1
+    human: []
+    skeleton: []
     armTwist: .5
     foreArmTwist: .5
     upperLegTwist: .5
@@ -783,7 +656,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 3
+  animationType: 2
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -52,9 +52,6 @@ public class ContraAnimationHandler : MonoBehaviour
             // Attack
             if (Input.GetKey(KeyCode.X) && !xHeld)
             {
-                playerMove.canMove = false;
-                GetComponent<BoxCollider2D>().enabled = true;
-
                 if (attack3)
                 {
                     attack3 = false;
@@ -99,5 +96,6 @@ public class ContraAnimationHandler : MonoBehaviour
     void DisallowAttack2() { attack2 = false; }
     void AllowAttack3() { attack3 = true; }
     void DisallowAttack3() { attack3 = false; }
+    void StartOfAttack() { playerMove.canMove = false; GetComponent<BoxCollider2D>().enabled = true; }
     void EndOfAttack() { playerMove.canMove = true; GetComponent<BoxCollider2D>().enabled = false; }
 }

@@ -136,8 +136,8 @@ public class Enemy1Movt : MonoBehaviour
         }
 
         // Proportion horizontal input movement
-        propX = Mathf.Cos((targetAngle + 90) * Mathf.Deg2Rad);
-        propY = Mathf.Sin((targetAngle + 90) * Mathf.Deg2Rad);
+        propX = Mathf.Cos((targetAngle - 90) * Mathf.Deg2Rad);
+        propY = Mathf.Sin((targetAngle - 90) * Mathf.Deg2Rad);
 
         // Move
         GetComponent<Rigidbody2D>().velocity = new Vector2(hspeed + (dx * propX), vspeed + (dx * propY));
@@ -145,7 +145,6 @@ public class Enemy1Movt : MonoBehaviour
         // Reset variables
         p.onGround = false;
         attack = false;
-        //attackBubble.gameObject.SetActive(false);
 	}
 
     // Flag on ground
@@ -154,7 +153,6 @@ public class Enemy1Movt : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             GetComponent<EntityProperties>().onGround = true;
-            //attackBubble.gameObject.SetActive(true);
         }
     }
 

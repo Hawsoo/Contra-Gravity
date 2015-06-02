@@ -65,7 +65,7 @@ public class Enemy1Movt : MonoBehaviour
         if (p.IsHit())
         {
             // BETA: destroy self
-            Destroy(gameObject);
+            SendMessageUpwards("DeleteWholeObject");
         }
 
         // AI

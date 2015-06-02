@@ -11,6 +11,5 @@ public class AlphaControls : MonoBehaviour
         Color c = GetComponent<Renderer>().material.color;
         c.a = alpha;
         GetComponent<Renderer>().material.color = c;
-        Debug.Log("alpha " + alpha);
 	}
 }

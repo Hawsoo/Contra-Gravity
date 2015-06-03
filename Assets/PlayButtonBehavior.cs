@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class QuitButtonBehavior : MonoBehaviour
+public class PlayButtonBehavior : MonoBehaviour
 {
     // Messages
     void ActionHappened()
     {
-        Application.Quit();
+        Application.LoadLevel(1);
     }
 }

@@ -14,9 +14,9 @@ public class MusicHandler : MonoBehaviour
         }
 	}
 
-	// Update
-	void Update()
-	{
-		
-	}
+	// Messages
+	void PlayMusic()
+    {
+        GetComponent<AudioSource>().Play();
+    }
 }

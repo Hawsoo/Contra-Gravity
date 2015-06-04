@@ -3,9 +3,11 @@ using System.Collections;
 
 public class PlayButtonBehavior : MonoBehaviour
 {
+    public Animator fadeAnim;
+
     // Messages
     void ActionHappened()
     {
-        Application.LoadLevel(1);
+        fadeAnim.Play("fadein_fast");
     }
 }

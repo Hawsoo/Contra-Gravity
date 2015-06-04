@@ -12,4 +12,10 @@ public class AlphaControls : MonoBehaviour
         c.a = alpha;
         GetComponent<Renderer>().material.color = c;
 	}
+
+    // Messages
+    void MoveToNextScene()
+    {
+        Application.LoadLevel(1);
+    }
 }

@@ -15,6 +15,8 @@ public class EntityProperties : MonoBehaviour
     public bool flipped = false;
     [System.NonSerialized]
     public float flipTime;
+    [System.NonSerialized]
+    public bool hitHazard = false;
 
     private bool gotHit = false;
 
@@ -25,7 +27,12 @@ public class EntityProperties : MonoBehaviour
         GetComponent<EntityProperties>().flipTime = timeFlipped;
     }
 
-    // Hit messages
+    // Messages
+    void HitHazard()
+    {
+        hitHazard = true;
+    }
+
     public void SendHit()
     {
         gotHit = true;

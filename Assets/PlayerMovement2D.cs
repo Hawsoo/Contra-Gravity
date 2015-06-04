@@ -42,6 +42,16 @@ public class PlayerMovement2D : MonoBehaviour
             direction = -1;
         }
 	}
+
+    // Check if player has died
+    void Update()
+    {
+        if (GetComponent<EntityProperties>().hitHazard)
+        {
+            // Die
+            Debug.Log("Died!!!!!!!!!!!!!");
+        }
+    }
 	
 	// Update
     void FixedUpdate()

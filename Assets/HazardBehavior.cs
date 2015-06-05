@@ -9,7 +9,7 @@ public class HazardBehavior : MonoBehaviour
         // If it is an entity
         if (other.gameObject.tag == "Entity")
         {
-
+            other.SendMessage("HitHazard");
         }
     }
 }

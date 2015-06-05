@@ -30,9 +30,16 @@ public class PlayerMovement2D : MonoBehaviour
 
     private bool ranWebsite = false;
 
+    // BETA (debug)
+    private Vector3 start;
+
 	// Init
 	void Start()
 	{
+        // BETA (debug)
+        start = transform.position;
+
+        // Start in correct direction
         if (startRight)
         {
             direction = 1;
@@ -49,7 +56,8 @@ public class PlayerMovement2D : MonoBehaviour
         if (GetComponent<EntityProperties>().hitHazard)
         {
             // Die
-            Debug.Log("Died!!!!!!!!!!!!!");
+            GetComponent<EntityProperties>().hitHazard = false;
+            transform.position = start;
         }
     }
 	

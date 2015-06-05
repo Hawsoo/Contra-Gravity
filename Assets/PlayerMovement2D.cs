@@ -107,21 +107,24 @@ public class PlayerMovement2D : MonoBehaviour
         float propX = Mathf.Cos(targetAngle * Mathf.Deg2Rad);
         float propY = Mathf.Sin(targetAngle * Mathf.Deg2Rad);
 
-        // Get input
-        if (canMove)
-            dx = Input.GetAxis("Horizontal") * multiplier;
-        else
+        //if (p.onGround)
         {
-            // Add friction to DX
-            if (dx > 0)
+            // Get input
+            if (canMove)
+                dx = Input.GetAxis("Horizontal") * multiplier;
+            else
             {
-                dx -= slowDownFriction * Time.deltaTime;
-                if (dx < 0) dx = 0;
-            }
-            else if (dx < 0)
-            {
-                dx += slowDownFriction * Time.deltaTime;
-                if (dx > 0) dx = 0;
+                // Add friction to DX
+                if (dx > 0)
+                {
+                    dx -= slowDownFriction * Time.deltaTime;
+                    if (dx < 0) dx = 0;
+                }
+                else if (dx < 0)
+                {
+                    dx += slowDownFriction * Time.deltaTime;
+                    if (dx > 0) dx = 0;
+                }
             }
         }
 

@@ -30,6 +30,10 @@ public class PlayerMovement2D : MonoBehaviour
 
     private bool ranWebsite = false;
 
+    // Movement disablements
+    private bool disableLeft = false;
+    private bool disableRight = false;
+
     // BETA (debug)
     private Vector3 start;
 
@@ -107,7 +111,6 @@ public class PlayerMovement2D : MonoBehaviour
         float propX = Mathf.Cos(targetAngle * Mathf.Deg2Rad);
         float propY = Mathf.Sin(targetAngle * Mathf.Deg2Rad);
 
-        //if (p.onGround)
         {
             // Get input
             if (canMove)
@@ -125,6 +128,13 @@ public class PlayerMovement2D : MonoBehaviour
                     dx += slowDownFriction * Time.deltaTime;
                     if (dx > 0) dx = 0;
                 }
+            }
+
+            // Disable
+            if (!p.onGround)
+            {
+                if (disableLeft) { dx = Mathf.Max(0, dx); }
+                if (disableRight) { dx = Mathf.Min(0, dx); }
             }
         }
 
@@ -183,21 +193,17 @@ public class PlayerMovement2D : MonoBehaviour
 
         // Reset variables
         GetComponent<EntityProperties>().onGround = false;
+        disableLeft = false;
+        disableRight = false;
 	}
 
-    // Flag on ground
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Ground")
-            GetComponent<EntityProperties>().onGround = true;
-
-        // Hit any entity
-        if (other.gameObject.tag == "Entity")
-        {
-            StartCoroutine("Pause", 0.15f);
-            other.GetComponent<EntityProperties>().SendHit();
-        }
-    }
+    // Messages
+    void HitEnemy(GameObject other) { StartCoroutine("Pause", 0.15f); other.GetComponent<EntityProperties>().SendHit(); }
+    void OnGround() { GetComponent<EntityProperties>().onGround = true; }
+    void HitSide() { hspeed = 0; }
+    void DisableSideLeft() { disableLeft = true; }
+    void DisableSideRight() { disableRight = true; }
+    void HitTop() { vspeed = 0; }
 
     // Coroutines
     private IEnumerator Pause(float p)

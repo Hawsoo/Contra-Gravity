@@ -91,6 +91,15 @@ public class ContraAnimationHandler : MonoBehaviour
         cHeld = Input.GetKey(KeyCode.C);
     }
 
+    // Checks if contra hit something
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Entity")
+        {
+            SendMessageUpwards("HitEnemy", other.gameObject);
+        }
+    }
+
     // Messages
     void AllowAttack2() { attack2 = true; }
     void DisallowAttack2() { attack2 = false; }

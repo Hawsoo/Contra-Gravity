@@ -8,8 +8,12 @@ public class PlayerModelAnimEvents : MonoBehaviour
         GetComponent<Animator>().SetBool("HornChanged", false);
     }
 
-    void EndHornChange()
+    // Checks if player is on ground
+    void OnTriggerStay2D(Collider2D other)
     {
-        //GetComponentInParent<PlayerMovement2D>().canMove = true;
+        if (other.gameObject.tag == "Ground")
+        {
+            SendMessageUpwards("OnGround");
+        }
     }
 }

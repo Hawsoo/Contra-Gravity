@@ -64,8 +64,11 @@ public class PlayerMovement2D : MonoBehaviour
         if (GetComponent<EntityProperties>().hitHazard)
         {
             // Die
+            Debug.Log("Deadified");
             GetComponent<EntityProperties>().hitHazard = false;
             transform.position = start;
+            hspeed = 0;
+            vspeed = 0;
         }
     }
 	

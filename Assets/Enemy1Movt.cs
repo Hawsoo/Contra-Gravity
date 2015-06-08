@@ -95,8 +95,6 @@ public class Enemy1Movt : MonoBehaviour
                     {
                         action = Action.STAY;
                     }
-
-                    // Attacking
                 }
                 else
                 {
@@ -171,6 +169,10 @@ public class Enemy1Movt : MonoBehaviour
             && coll.gameObject.name == "Player")
         {
             coll.gameObject.GetComponent<EntityProperties>().SendHit();
+
+            // Stop attacking; wait
+            actionTimer = actionDuration;
+            action = Action.STAY;
         }
     }
 }

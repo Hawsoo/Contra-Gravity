@@ -164,7 +164,7 @@ public class Enemy1Movt : MonoBehaviour
     }
 
     // Repel player
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnCollisionStay2D(Collision2D coll)
     {
         // Check if player
         if (coll.gameObject.tag == "Entity"

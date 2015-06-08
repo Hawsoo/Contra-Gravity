@@ -14,7 +14,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     public bool startRight = true;
 
-    public GameObject obj;
+    //public GameObject obj;
     private float hspeed;
     private float vspeed;
 
@@ -33,6 +33,10 @@ public class PlayerMovement2D : MonoBehaviour
     // Movement disablements
     private bool disableLeft = false;
     private bool disableRight = false;
+
+    private bool cantMoveUntilGround = false;
+    public float minimumCantMove;
+    private float cantMoveWaited = 0;
 
     // BETA (debug)
     private Vector3 start;
@@ -68,19 +72,7 @@ public class PlayerMovement2D : MonoBehaviour
 	// Update
     void FixedUpdate()
     {
-        // Does stupid easter egg stuff
-        // ctrl + S
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.S) && !ranWebsite)
-        {
-            // Goto mameshiba website with weird american kids
-            ranWebsite = true;
-            Application.OpenURL("http://dogatch.jp/mameshibaworld/bc/video10.html");
-        }
-        else if (!Input.GetKey(KeyCode.LeftControl) || !Input.GetKey(KeyCode.S))
-        {
-            // Reset flag
-            ranWebsite = false;
-        }
+        Mameshiba();
 
         // Set direction of player according to gravity
         float targetAngle = GetComponent<EntityProperties>().gravDir;
@@ -135,11 +127,15 @@ public class PlayerMovement2D : MonoBehaviour
             {
                 if (disableLeft) { dx = Mathf.Max(0, dx); }
                 if (disableRight) { dx = Mathf.Min(0, dx); }
+                if (cantMoveUntilGround) { dx = 0; }
             }
         }
 
         // Update animation components
         playerModel.SetBool("Walking", Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1);
+
+        // Countdown knockback
+        cantMoveWaited -= Time.deltaTime;
 
         // Jump
         if (Input.GetKey(KeyCode.UpArrow) && p.onGround)
@@ -156,6 +152,9 @@ public class PlayerMovement2D : MonoBehaviour
             vspeed = gravity * propY * Time.deltaTime;
 
             playerModel.SetBool("Jump", false);
+
+            // Undo knockback
+            if (cantMoveWaited <= 0) { cantMoveUntilGround = false; }
         }
         else
         {
@@ -171,10 +170,13 @@ public class PlayerMovement2D : MonoBehaviour
             propX = Mathf.Cos((targetAngle + (45 * direction)) * Mathf.Deg2Rad);
             propY = Mathf.Sin((targetAngle + (45 * direction)) * Mathf.Deg2Rad);
 
-            // Launch in certain direction
+            // Jump along with knockback
             hspeed = launchheight * -propX;
             vspeed = launchheight * -propY;
+
             p.onGround = false;
+            cantMoveUntilGround = true;
+            cantMoveWaited = minimumCantMove;
         }
 
         // Proportion horizontal input movement
@@ -196,6 +198,26 @@ public class PlayerMovement2D : MonoBehaviour
         disableLeft = false;
         disableRight = false;
 	}
+
+    private void Mameshiba()
+    {
+        // Does stupid easter egg stuff
+        // once the player "takes ctrl"
+        if (Input.GetKey(KeyCode.LeftControl) && !ranWebsite)
+        {
+            // Goto random mameshiba video
+            ranWebsite = true;
+
+            // Pick which
+            int option = Random.Range(1, 5);
+            Application.OpenURL("file:///" + Application.streamingAssetsPath + "/Html/" + option + ".html");
+        }
+        else if (!Input.GetKey(KeyCode.LeftControl))
+        {
+            // Reset flag
+            ranWebsite = false;
+        }
+    }
 
     // Messages
     void HitEnemy(GameObject other) { StartCoroutine("Pause", 0.15f); other.GetComponent<EntityProperties>().SendHit(); }

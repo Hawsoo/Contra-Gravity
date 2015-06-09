@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerMovement2D : MonoBehaviour
 {
     public Animator playerModel;
+    public bool walkForced = false;
 
     public float multiplier = 20;
     public float gravity = 70;
@@ -134,8 +135,16 @@ public class PlayerMovement2D : MonoBehaviour
             }
         }
 
-        // Update animation components
-        playerModel.SetBool("Walking", Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1);
+        if (walkForced)
+        {
+            // Always walk
+            playerModel.SetBool("Walking", true);
+        }
+        else
+        {
+            // Update animation components
+            playerModel.SetBool("Walking", Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1);
+        }
 
         // Countdown knockback
         cantMoveWaited -= Time.deltaTime;

@@ -3,6 +3,10 @@ using System.Collections;
 
 public class AvatarAnimationHandler : MonoBehaviour
 {
+    public PlayerMovement2D movement;
+    public MeshRenderer fadingSquare;
+    public float alpha = 0;
+
     private Animator anim;
     private int nextFlip;
 
@@ -10,6 +14,20 @@ public class AvatarAnimationHandler : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
+    }
+
+    // Update alpha
+    void Update()
+    {
+        Color c = fadingSquare.material.color;
+        c.a = alpha;
+
+        if (alpha > 0)
+        {
+            c.r = c.g = c.b = 0;
+        }
+
+        fadingSquare.material.color = c;
     }
 
     // Update
@@ -45,5 +63,24 @@ public class AvatarAnimationHandler : MonoBehaviour
     {
         transform.localScale = new Vector3(nextFlip * Mathf.Abs(transform.localScale.x), transform.localScale.y, nextFlip * Mathf.Abs(transform.localScale.z));
         GetComponent<Animator>().SetBool("TurnRequested", false);
+    }
+
+    void ForceWalk()
+    {
+        movement.walkForced = true;
+    }
+
+    void EndLevel()
+    {
+        // Play end of level animation
+        anim.SetBool("EndLevel", true);
+        Time.timeScale = 0.5f;
+        fadingSquare.gameObject.SetActive(true);
+    }
+
+    void LoadBadMarioEasterEggThang()
+    {
+        Application.OpenURL("https://www.youtube.com/watch?v=L3Yy3hy8jck");
+        Application.Quit();
     }
 }

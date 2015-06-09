@@ -6,10 +6,22 @@ enum HornPosition
     UP, CARRY
 }
 
+[System.Serializable]
+public class SoundsContra
+{
+    public AudioClip tubaSong;
+    public AudioClip swing1;
+    public AudioClip swing2;
+    public AudioClip swing3;
+}
+
 public class ContraAnimationHandler : MonoBehaviour
 {
     public PlayerMovement2D playerMove;
     public Animator playerAnim;
+
+    public SoundsContra sounds;
+    private AudioSource a;
 
     private bool xHeld = false;
     private bool cHeld = false;
@@ -18,6 +30,11 @@ public class ContraAnimationHandler : MonoBehaviour
 
     private bool attack2 = false;
     private bool attack3 = false;
+
+    void Awake()
+    {
+        a = GetComponent<AudioSource>();
+    }
 
     // Update
     public void AniUpdate()
@@ -75,13 +92,11 @@ public class ContraAnimationHandler : MonoBehaviour
             if (Input.GetKey(KeyCode.X) && !xHeld)
             {
                 playerMove.canMove = false;
-                GetComponent<AudioSource>().Play();
                 GetComponent<Animator>().Play("contra_play");
             }
             else if (!Input.GetKey(KeyCode.X) && xHeld)
             {
                 playerMove.canMove = true;
-                GetComponent<AudioSource>().Stop();
                 GetComponent<Animator>().Play("contra_up");
             }
         }
@@ -101,6 +116,11 @@ public class ContraAnimationHandler : MonoBehaviour
     }
 
     // Messages
+    void PlayTubaSong() { a.PlayOneShot(sounds.tubaSong); }
+    void PlaySwing1() { a.PlayOneShot(sounds.swing1); }
+    void PlaySwing2() { a.PlayOneShot(sounds.swing2); }
+    void PlaySwing3() { a.PlayOneShot(sounds.swing3); }
+
     void AllowAttack2() { attack2 = true; }
     void DisallowAttack2() { attack2 = false; }
     void AllowAttack3() { attack3 = true; }

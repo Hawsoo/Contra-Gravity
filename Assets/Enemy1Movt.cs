@@ -6,9 +6,51 @@ enum Action
     MOVE, STAY, ATTACK
 }
 
+[System.Serializable]
+public class Sounds2Enemy1
+{
+    public AudioClip slurpsound1;
+    public AudioClip slurpsound2;
+    public AudioClip slurpsound3;
+    public AudioClip slurpsound4;
+
+    public AudioClip diesound1;
+
+    // Gets a random sound
+    public AudioClip GetRandSlurpSound()
+    {
+        switch (Random.Range(1, 5))
+        {
+            case 1:
+                return slurpsound1;
+            case 2:
+                return slurpsound2;
+            case 3:
+                return slurpsound3;
+            case 4:
+                return slurpsound4;
+        }
+
+        return null;
+    }
+
+    // Gets a random sound
+    public AudioClip GetRandDieSound()
+    {
+        switch (Random.Range(1, 1))
+        {
+            case 1:
+                return diesound1;
+        }
+
+        return null;
+    }
+}
+
 public class Enemy1Movt : MonoBehaviour
 {
     public CircleCollider2D attackBubble;
+    public Sounds2Enemy1 sounds;
 
     public float moveSpeed = 20;
     public float gravity = 70;
@@ -66,6 +108,8 @@ public class Enemy1Movt : MonoBehaviour
         {
             // BETA: destroy self
             SendMessageUpwards("DeleteWholeObject");
+            SendMessageUpwards("StopSFX");
+            SendMessageUpwards("PlaySFX", sounds.GetRandDieSound());
         }
 
         // AI
@@ -169,6 +213,8 @@ public class Enemy1Movt : MonoBehaviour
             && coll.gameObject.name == "Player")
         {
             coll.gameObject.GetComponent<EntityProperties>().SendHit();
+            SendMessageUpwards("StopSFX");
+            SendMessageUpwards("PlaySFX", sounds.GetRandSlurpSound());
 
             // Stop attacking; wait
             actionTimer = actionDuration;

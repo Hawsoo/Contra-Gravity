@@ -98,6 +98,7 @@ public class ContraAnimationHandler : MonoBehaviour
             {
                 playerMove.canMove = true;
                 GetComponent<Animator>().Play("contra_up");
+                a.Stop();
             }
         }
 

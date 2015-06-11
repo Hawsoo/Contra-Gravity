@@ -25,4 +25,9 @@ public class BasicEnemy : MonoBehaviour
             GetComponent<AudioSource>().Play();
         }
     }
+
+    void StopSFX()
+    {
+        GetComponent<AudioSource>().Stop();
+    }
 }
